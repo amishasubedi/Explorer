@@ -1,17 +1,19 @@
 import React from "react";
+
 import UsersList from "../components/UsersList";
 
 const Users = () => {
-  const dummyData = [
+  const dummyUsers = [
     {
-      id: 1,
-      name: "Amisha",
+      id: "u1",
+      name: "Max Schwarz",
       image:
-        "https://media-exp1.licdn.com/dms/image/C5603AQFHoqZRoC8JWQ/profile-displayphoto-shrink_200_200/0/1654656935350?e=1668643200&v=beta&t=IUWljsCJ_jpGmY2gHYP6D4__3dq3j3N0hB1NZP8hjIQ",
-      placeCount: 3,
+        "https://images.pexels.com/photos/839011/pexels-photo-839011.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      placeCOunt: 3,
     },
   ];
-  return <UsersList items={dummyData} />;
+
+  return <UsersList items={dummyUsers} />;
 };
 
 export default Users;

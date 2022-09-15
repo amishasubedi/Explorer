@@ -2,6 +2,7 @@ import React from "react";
 import Design from "../../shared/components/UI/Design";
 import Card from "../../shared/components/UI/Card";
 import { Link } from "react-router-dom";
+import "./UsersItem.css";
 
 const UsersItem = (props) => {
   return (
