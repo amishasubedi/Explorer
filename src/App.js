@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Users from "./user/pages/Users";
 import NewPlaces from "./places/pages/NewPlaces";
-import userPlaces from "./places/pages/UserPlaces";
+import UserPlaces from "./places/pages/UserPlaces";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 
 function App() {
@@ -19,7 +19,9 @@ function App() {
           <Route path="/" exact>
             <Users />
           </Route>
-
+          <Route path="/:userId/places" exact>
+            <UserPlaces />
+          </Route>
           <Route path="/places/new" exact>
             <NewPlaces />
           </Route>

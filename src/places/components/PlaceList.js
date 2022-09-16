@@ -1,5 +1,6 @@
 import React from "react";
 
+import Card from "../../shared/components/UI/Card";
 import PlaceDescription from "./PlaceDescription";
 import "./PlaceList.css";
 
@@ -8,10 +9,8 @@ const PlaceList = (props) => {
     return (
       <div className="place-list center">
         <Card>
-          <h2>
-            No places found to show, maybe create one?
-            <button>Share Place</button>
-          </h2>
+          <h2>No places found. Maybe create one?</h2>
+          <button>Share Place</button>
         </Card>
       </div>
     );
@@ -23,9 +22,9 @@ const PlaceList = (props) => {
         <PlaceDescription
           key={place.id}
           id={place.id}
-          image={place.image}
-          title={(place, title)}
-          description={place.des}
+          image={place.imageUrl}
+          title={place.title}
+          description={place.description}
           address={place.address}
           creatorId={place.creator}
           coordinates={place.location}
@@ -34,3 +33,5 @@ const PlaceList = (props) => {
     </ul>
   );
 };
+
+export default PlaceList;

@@ -1,13 +1,15 @@
 import React from "react";
 
+import { useParams } from "react-router";
 import PlaceDescription from "../components/PlaceDescription";
 
-const dummyPlaces = [
+const DUMMY_PLACES = [
   {
     id: "p1",
     title: "Empire State Building",
-    des: "One of the most famous sky scrapers in the world",
-    url: "https://media.istockphoto.com/photos/new-york-city-skyline-picture-id486334510?k=20&m=486334510&s=612x612&w=0&h=OsShL4aTYo7udJodSNXoU_3anIdIG57WyIGuwW2_tvA=",
+    description: "One of the most famous sky scrapers in the world!",
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg",
     address: "20 W 34th St, New York, NY 10001",
     location: {
       lat: 40.7484405,
@@ -15,12 +17,12 @@ const dummyPlaces = [
     },
     creator: "u1",
   },
-
   {
     id: "p2",
     title: "Empire State Building",
-    des: "One of the most famous sky scrapers in the world",
-    url: "https://media.istockphoto.com/photos/new-york-city-skyline-picture-id486334510?k=20&m=486334510&s=612x612&w=0&h=OsShL4aTYo7udJodSNXoU_3anIdIG57WyIGuwW2_tvA=",
+    description: "One of the most famous sky scrapers in the world!",
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NYC_Empire_State_Building.jpg/640px-NYC_Empire_State_Building.jpg",
     address: "20 W 34th St, New York, NY 10001",
     location: {
       lat: 40.7484405,
@@ -29,8 +31,11 @@ const dummyPlaces = [
     creator: "u2",
   },
 ];
-const userPlaces = () => {
-  return <PlaceDescription items={dummyPlaces} />;
+
+const UserPlaces = () => {
+  const userId = useParams(),userId;
+  const loadedPlaces = DUMMY_PLACES.filter(place => place.creator === userId)
+  return <PlaceDescription items={loadedPlaces} />;
 };
 
-export default userPlaces;
+export default UserPlaces;
