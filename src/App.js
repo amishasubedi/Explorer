@@ -12,21 +12,20 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 function App() {
   return (
     <Router>
-      <MainNavigation>
-        <main>
-          <Switch>
-            <Route path="/" exact>
-              <Users />
-            </Route>
+      <MainNavigation />
+      <main>
+        <Switch>
+          <Route path="/" exact>
+            <Users />
+          </Route>
 
-            <Route path="/places/new" exact>
-              <NewPlaces />
-            </Route>
+          <Route path="/places/new" exact>
+            <NewPlaces />
+          </Route>
 
-            <Redirect to="/" />
-          </Switch>
-        </main>
-      </MainNavigation>
+          <Redirect to="/" />
+        </Switch>
+      </main>
     </Router>
   );
 }
