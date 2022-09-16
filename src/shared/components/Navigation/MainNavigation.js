@@ -1,24 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import MainHeader from "./MainHeader";
 import NavLinks from "./NavLinks";
 import SideDrawar from "./SideDrawar";
 import "./MainNavigation.css";
+import Backdrop from "../UI/Backdrop";
 
 const MainNavigation = (props) => {
+  const [menuIsClicked, setMenuIspen] = useState(false);
+
+  const menuOpenHandler = () => {
+    setMenuIspen(true);
+  };
+
+  const menuCloseHandler = () => {
+    setMenuIspen(false);
+  };
+
   return (
     <React.Fragment>
+      {menuIsClicked ? <Backdrop onClick={menuCloseHandler} /> : null}
       {/* Compatible with mobile devices */}
-      <SideDrawar>
+      {/* {menuIsClicked ? ( */}
+      <SideDrawar show={menuIsClicked} onClick={menuCloseHandler}>
         <nav className="main-navigation__drawar-nav">
           <NavLinks />
         </nav>
       </SideDrawar>
+      {/* ) : null} */}
 
       {/* Compatible with desktop */}
       <MainHeader>
-        <button className="main-navigation__menu-btn">
+        <button className="main-navigation__menu-btn" onClick={menuOpenHandler}>
           <span />
           <span />
           <span />
