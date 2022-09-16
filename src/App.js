@@ -6,7 +6,8 @@ import {
   Switch,
 } from "react-router-dom";
 import Users from "./user/pages/Users";
-import NewPlaces from "./places/components/pages/NewPlaces";
+import NewPlaces from "./places/pages/NewPlaces";
+import userPlaces from "./places/pages/UserPlaces";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 
 function App() {

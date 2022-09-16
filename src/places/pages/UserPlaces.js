@@ -1,6 +1,6 @@
 import React from "react";
 
-import PlaceDescription from "../PlaceDescription";
+import PlaceDescription from "../components/PlaceDescription";
 
 const dummyPlaces = [
   {
