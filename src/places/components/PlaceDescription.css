@@ -7,6 +7,7 @@
 }
 
 .place-item__info {
+  background: white;
   padding: 1rem;
   text-align: center;
 }
