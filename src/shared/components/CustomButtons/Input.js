@@ -4,32 +4,32 @@ import { validate } from "../../util/validators";
 import "./Input.css";
 
 const inputReducer = (state, action) => {
-  // dispatch action having type properties
   switch (action.type) {
     case "CHANGE":
       return {
-        ...state, // spread operator to copy old state to new object
-        value: action.val, // store in the val property of an action object
+        ...state,
+        value: action.val,
         isValid: validate(action.val, action.validators),
       };
-    case "TOUCH":
+    case "TOUCH": {
       return {
         ...state,
         isTouched: true,
       };
+    }
     default:
       return state;
   }
 };
+
 const Input = (props) => {
-  // second argument is the initial state
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: "",
     isTouched: false,
     isValid: false,
   });
 
-  const inputChangeHandler = (event) => {
+  const changeHandler = (event) => {
     dispatch({
       type: "CHANGE",
       val: event.target.value,
@@ -49,7 +49,7 @@ const Input = (props) => {
         id={props.id}
         type={props.type}
         placeholder={props.placeholder}
-        onChange={inputChangeHandler}
+        onChange={changeHandler}
         onBlur={touchHandler}
         value={inputState.value}
       />
@@ -57,15 +57,16 @@ const Input = (props) => {
       <textarea
         id={props.id}
         rows={props.rows || 3}
-        value={inputState.val}
+        onChange={changeHandler}
         onBlur={touchHandler}
+        value={inputState.value}
       />
     );
 
   return (
     <div
       className={`form-control ${
-        !inputState.isValid && inputState.isTouched && "form-control__invalid"
+        !inputState.isValid && inputState.isTouched && "form-control--invalid"
       }`}
     >
       <label htmlFor={props.id}>{props.label}</label>
