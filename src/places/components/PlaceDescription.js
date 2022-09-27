@@ -27,7 +27,7 @@ const PlaceDescription = (props) => {
         footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
       >
         <div className="map-container">
-          <h2>RENDER GOOGLE MAP HERE</h2>
+          <h2>map</h2>
         </div>
       </Modal>
       <li className="place-item">
