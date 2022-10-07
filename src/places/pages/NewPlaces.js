@@ -58,11 +58,24 @@ const NewPlaces = () => {
 
   // prevent infinite loop using callback
   const inputHandler = useCallback((id, value, isValid) => {
-    dispatch({ type: "INPUT_CHANGE", value: isValid, inputId: id });
+    dispatch({
+      type: "INPUT_CHANGE",
+      value: value,
+      isValid: isValid,
+      inputId: id,
+    });
   }, []);
 
+  // prevent page reload
+  const placeSubmitHandler = (event) => {
+    event.preventDefault();
+
+    // send data to server later (backend)
+    console.log(formState.inputs);
+  };
+
   return (
-    <form className="place-form">
+    <form className="place-form" onSubmit={placeSubmitHandler}>
       <Input
         id="title"
         element="input"
@@ -76,10 +89,18 @@ const NewPlaces = () => {
       <Input
         id="description"
         element="textarea"
-        type="text"
         label="Description"
         validators={[VALIDATOR_MINLENGTH(5)]} // pass all info to the input element
         error="Please enter a valid Description"
+        onInput={inputHandler}
+      />
+
+      <Input
+        id="address"
+        element="input"
+        label="Address"
+        validators={[VALIDATOR_REQUIRE()]} // pass all info to the input element
+        error="Please enter a valid address"
         onInput={inputHandler}
       />
 
