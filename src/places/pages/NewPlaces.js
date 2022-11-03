@@ -50,6 +50,10 @@ const NewPlaces = () => {
         value: "",
         isValid: false,
       },
+      address: {
+        value: "",
+        isValid: false,
+      },
     },
 
     // overall form validity
