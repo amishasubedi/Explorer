@@ -57,6 +57,11 @@ const UpdatePlace = (props) => {
     true
   );
 
+  const placeSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(formState.inputs);
+  };
+
   if (!identifiedPlace) {
     return (
       <div className="center">
@@ -65,7 +70,7 @@ const UpdatePlace = (props) => {
     );
   }
   return (
-    <form className="place-form">
+    <form className="place-form" onSubmit={placeSubmitHandler}>
       <Input
         id="title"
         element="input"

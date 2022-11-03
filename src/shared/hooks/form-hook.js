@@ -8,6 +8,9 @@ const formReducer = (state, action) => {
 
       // go through all input in state.inputs
       for (const inputId in state.inputs) {
+        if (!state.inputs[inputId]) {
+          continue;
+        }
         // check if the current input is the input which is getting updated by the user
         if (inputId === action.inputId) {
           // dispatch that action, combine values to determine overall validity
