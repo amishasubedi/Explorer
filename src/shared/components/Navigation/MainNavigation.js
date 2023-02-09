@@ -6,6 +6,7 @@ import NavLinks from "./NavLinks";
 import SideDrawar from "./SideDrawar";
 import "./MainNavigation.css";
 import Backdrop from "../UI/Backdrop";
+import FrontPage from "./Images";
 
 const MainNavigation = (props) => {
   const [menuIsClicked, setMenuIspen] = useState(false);
@@ -28,7 +29,7 @@ const MainNavigation = (props) => {
           <NavLinks />
         </nav>
       </SideDrawar>
-      {/* ) : null} */}
+      
 
       {/* Compatible with desktop */}
       <MainHeader>
@@ -38,7 +39,7 @@ const MainNavigation = (props) => {
           <span />
         </button>
         <h1 className="main-navigation__title">
-          <Link to="/">Explorer</Link>
+          <Link to="/">GeoGuide</Link>
         </h1>
         <nav className="main-navigation__header-nav">
           <NavLinks />
