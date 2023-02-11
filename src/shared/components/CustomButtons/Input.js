@@ -5,54 +5,53 @@ import "./Input.css";
 
 const inputReducer = (state, action) => {
   switch (action.type) {
-    case "CHANGE":
+    case 'CHANGE':
       return {
         ...state,
         value: action.val,
-        isValid: validate(action.val, action.validators),
+        isValid: validate(action.val, action.validators)
       };
-    case "TOUCH": {
+    case 'TOUCH': {
       return {
         ...state,
-        isTouched: true,
-      };
+        isTouched: true
+      }
     }
     default:
       return state;
   }
 };
 
-const Input = (props) => {
+const Input = props => {
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: props.initialValue || "",
+    value: props.initialValue || '',
     isTouched: false,
-    isValid: props.initialValid || false,
+    isValid: props.initialValid || false
   });
 
-  // extract required items through object destructuring
   const { id, onInput } = props;
   const { value, isValid } = inputState;
 
   useEffect(() => {
-    props.onInput(props.id, inputState.value, inputState.valid);
-  }, [id, onInput, value, isValid]);
+    onInput(id, value, isValid)
+  }, [id, value, isValid, onInput]);
 
-  const changeHandler = (event) => {
+  const changeHandler = event => {
     dispatch({
-      type: "CHANGE",
+      type: 'CHANGE',
       val: event.target.value,
-      validators: props.validators,
+      validators: props.validators
     });
   };
 
   const touchHandler = () => {
     dispatch({
-      type: "TOUCH",
+      type: 'TOUCH'
     });
   };
 
   const element =
-    props.element === "input" ? (
+    props.element === 'input' ? (
       <input
         id={props.id}
         type={props.type}
@@ -73,13 +72,12 @@ const Input = (props) => {
 
   return (
     <div
-      className={`form-control ${
-        !inputState.isValid && inputState.isTouched && "form-control--invalid"
-      }`}
+      className={`form-control ${!inputState.isValid && inputState.isTouched &&
+        'form-control--invalid'}`}
     >
       <label htmlFor={props.id}>{props.label}</label>
       {element}
-      {!inputState.isValid && inputState.isTouched && <p>{props.error}</p>}
+      {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
     </div>
   );
 };

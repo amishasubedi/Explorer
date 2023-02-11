@@ -22,7 +22,7 @@ const NewPlaces = () => {
       address: {
         value: "",
         isValid: false,
-      },
+      }
     },
     false
   );
