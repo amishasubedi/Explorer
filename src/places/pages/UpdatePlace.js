@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Input from "../../shared/components/CustomButtons/Input";
 import Button from "../../shared/components/CustomButtons/Button";
+import Card from "../../shared/components/UI/Card";
 import { useForm } from "../../shared/hooks/form-hook";
 import {
   VALIDATOR_MINLENGTH,
@@ -85,7 +86,9 @@ const UpdatePlace = (props) => {
   if (!identifiedPlace) {
     return (
       <div className="center">
+        <Card>
         <h2>Could not find a place!</h2>
+        </Card>
       </div>
     );
   }

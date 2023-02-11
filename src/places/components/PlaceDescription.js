@@ -7,6 +7,7 @@ import "./PlaceDescription.css";
 
 const PlaceDescription = (props) => {
   const [showMap, setShowMap] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const openMapHandler = () => {
     setShowMap(true);
@@ -15,6 +16,20 @@ const PlaceDescription = (props) => {
   const closeMapHandler = () => {
     setShowMap(false);
   };
+
+  const showDeleteWarningHandler= () => {
+    setShowModal(true);
+  }
+
+  const cancelDeleteHandler = () => {
+    setShowModal(false);
+  }
+
+  const confirmDeleteHandler = () => {
+    // remove data from db later
+    setShowModal(false);
+    console.log('DELETING......')
+  }
 
   return (
     <React.Fragment>
@@ -30,6 +45,15 @@ const PlaceDescription = (props) => {
           <h2>map</h2>
         </div>
       </Modal>
+
+      <Modal show = {showModal} header = "Are you sure?" footerClass = "place-item__modal-actions" footer = {
+        <React.Fragment>
+          <Button inverse onClick = {cancelDeleteHandler}>CANCEL</Button>
+          <Button danger onClick = {confirmDeleteHandler}>DELETE</Button>
+        </React.Fragment>
+      }>
+        <p>Do you want to proceed and delete this place?</p>
+        </Modal>
       <li className="place-item">
         <Card className="place-item__content">
           <div className="place-item__image">
@@ -47,7 +71,7 @@ const PlaceDescription = (props) => {
               VIEW ON MAP
             </Button>
             <Button to={`/places/${props.id}`}>EDIT</Button>
-            <Button danger>DELETE</Button>
+            <Button danger onClick = {showDeleteWarningHandler}>DELETE</Button>
           </div>
         </Card>
       </li>
