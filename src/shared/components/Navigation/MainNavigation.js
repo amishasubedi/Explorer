@@ -6,7 +6,6 @@ import NavLinks from "./NavLinks";
 import SideDrawar from "./SideDrawar";
 import "./MainNavigation.css";
 import Backdrop from "../UI/Backdrop";
-import FrontPage from "./Images";
 
 const MainNavigation = (props) => {
   const [menuIsClicked, setMenuIspen] = useState(false);
