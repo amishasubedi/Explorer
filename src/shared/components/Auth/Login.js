@@ -11,8 +11,8 @@ import './Login.css';
 
 
 const Login = () => {
-
-    const [formState, inputHandler] = useForm(
+    const[isLogin, setIsLogin] = useState(true);
+    const [formState, inputHandler, setFormData] = useForm(
         {
           email: {
             value: "",
@@ -26,8 +26,27 @@ const Login = () => {
         false
       );
 
+    const switchModeHandler =() => {
+      if (!isLogin) {
+        setFormData(
+          {
+            name : undefined
+          },
+          formState.inputs.email.isValid && formState.inputs.password.isValid)
+      } else {
+        setFormData({
+          ...formState.inputs,
+          name: {
+            value: '',
+            isValid: false
+          }
+        }, false)
+      }
+      setIsLogin(prevMode => !prevMode);
+    }  
+
       // prevent page reload
-    const placeSubmitHandler = (event) => {
+    const loginSubmitHandler = (event) => {
         event.preventDefault();
 
         // send data to server later (backend)
@@ -39,7 +58,18 @@ const Login = () => {
       <Card className = "authentication">
         <h2 >Login Required! </h2>
         <hr />
-        <form >
+        <form onSubmit = {loginSubmitHandler}>
+        {!isLogin && (
+          <Input 
+            element = "input"
+            id = "name"
+            type = "text"
+            label = "Your Name"
+            validators = {[VALIDATOR_REQUIRE()]}
+            errorText = "Please enter your name"
+            onInput = {inputHandler}
+          />
+        )}
         <Input
         id="email"
         element="input"
@@ -60,10 +90,11 @@ const Login = () => {
       />
 
      
-      <Button type="submit" disabled={!formState.isValid}>
-        LOGIN
+      <Button type="submit" disabled={!formState.isValid} >
+        {isLogin ? 'LOGIN' : 'SIGNUP'}
       </Button>
     </form>
+    <Button inverse onClick = {switchModeHandler}>SWITCH TO {isLogin ? 'SIGNUP' : 'LOGIN'}</Button>
     </Card>
     )
 }
