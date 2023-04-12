@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Input from "../CustomButtons/Input";
 import Button from "../CustomButtons/Button";
@@ -7,20 +7,22 @@ import { VALIDATOR_EMAIL,
     VALIDATOR_REQUIRE } from "../../util/validators";
 import { useForm } from "../../hooks/form-hook";
 import Card from '../UI/Card';
+import { AuthContext } from '../../context/auth-context';
 import './Login.css';
 
 
 const Login = () => {
+    const auth = useContext(AuthContext);
     const[isLogin, setIsLogin] = useState(true);
     const [formState, inputHandler, setFormData] = useForm(
         {
           email: {
             value: "",
-            isValid: true,
+            isValid: false,
           },
           password: {
             value: "",
-            isValid: true,
+            isValid: false,
           },
         },
         false
@@ -48,10 +50,10 @@ const Login = () => {
       // prevent page reload
     const loginSubmitHandler = (event) => {
         event.preventDefault();
-
         // send data to server later (backend)
         console.log(formState.inputs);
-        console.log("validity check" + formState.isValid)
+        
+        auth.login();
     };
     
     return (
@@ -81,7 +83,7 @@ const Login = () => {
       />
 
       <Input
-        id="Password"
+        id="password"
         element="input"
         label="Password"
         validators={[VALIDATOR_MINLENGTH(5)]} // pass all info to the input element
