@@ -16,11 +16,11 @@ const Login = () => {
         {
           email: {
             value: "",
-            isValid: false,
+            isValid: true,
           },
           password: {
             value: "",
-            isValid: false,
+            isValid: true,
           },
         },
         false
@@ -32,6 +32,7 @@ const Login = () => {
 
         // send data to server later (backend)
         console.log(formState.inputs);
+        console.log("validity check" + formState.isValid)
     };
     
     return (
@@ -59,8 +60,6 @@ const Login = () => {
       />
 
      
-
-      
       <Button type="submit" disabled={!formState.isValid}>
         LOGIN
       </Button>
