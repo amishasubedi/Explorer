@@ -1,104 +1,106 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom';
 
-import Input from "../CustomButtons/Input";
-import Button from "../CustomButtons/Button";
-import { VALIDATOR_EMAIL,
-    VALIDATOR_MINLENGTH,
-    VALIDATOR_REQUIRE } from "../../util/validators";
-import { useForm } from "../../hooks/form-hook";
 import Card from '../UI/Card';
-import { AuthContext } from '../../context/auth-context';
+import Input from '../CustomButtons/Input';
+import Button from '../CustomButtons/Button';
+import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../util/validators';
+import { useForm } from '../../hooks/form-hook';
 import './Login.css';
-
+import { AuthContext } from '../../context/auth-context';
 
 const Login = () => {
-    const auth = useContext(AuthContext);
-    const[isLogin, setIsLogin] = useState(true);
-    const [formState, inputHandler, setFormData] = useForm(
-        {
-          email: {
-            value: "",
-            isValid: false,
-          },
-          password: {
-            value: "",
-            isValid: false,
-          },
-        },
-        false
-      );
+  
+  const auth = useContext(AuthContext);
+  const [isLoginMode, setIsLoginMode] = useState(true);
 
-    const switchModeHandler =() => {
-      if (!isLogin) {
-        setFormData(
-          {
-            name : undefined
-          },
-          formState.inputs.email.isValid && formState.inputs.password.isValid)
-      } else {
-        setFormData({
+  const [formState, inputHandler, setFormData] = useForm(
+    {
+      email: {
+        value: '',
+        isValid: false
+      },
+      password: {
+        value: '',
+        isValid: false
+      }
+    },
+    false
+  );
+
+  const switchModeHandler = () => {
+    if (!isLoginMode) {
+      setFormData(
+        {
+          ...formState.inputs,
+          name: undefined
+        },
+        formState.inputs.email.isValid && formState.inputs.password.isValid
+      );
+    } else {
+      setFormData(
+        {
           ...formState.inputs,
           name: {
             value: '',
             isValid: false
           }
-        }, false)
-      }
-      setIsLogin(prevMode => !prevMode);
-    }  
+        },
+        false
+      );
+    }
+    setIsLoginMode(prevMode => !prevMode);
+  };
 
-      // prevent page reload
-    const loginSubmitHandler = (event) => {
-        event.preventDefault();
-        // send data to server later (backend)
-        console.log(formState.inputs);
-        
-        auth.login();
-    };
-    
-    return (
-      <Card className = "authentication">
-        <h2 >Login Required! </h2>
-        <hr />
-        <form onSubmit = {loginSubmitHandler}>
-        {!isLogin && (
-          <Input 
-            element = "input"
-            id = "name"
-            type = "text"
-            label = "Your Name"
-            validators = {[VALIDATOR_REQUIRE()]}
-            errorText = "Please enter your name"
-            onInput = {inputHandler}
+  const authSubmitHandler = event => {
+    event.preventDefault();
+    console.log(formState.inputs);
+    auth.login();
+  };
+
+  return (
+    <Card className="authentication">
+      <h2>Login Required</h2>
+      <hr />
+      <form onSubmit={authSubmitHandler}>
+        {!isLoginMode && (
+          <Input
+            element="input"
+            id="name"
+            type="text"
+            label="Your Name"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Please enter a name."
+            onInput={inputHandler}
           />
         )}
         <Input
-        id="email"
-        element="input"
-        type="email"
-        label="Email"
-        validators={[VALIDATOR_EMAIL()]} // pass all info to the input element
-        errorText="Please enter a valid email"
-        onInput={inputHandler}
-      />
-
-      <Input
-        id="password"
-        element="input"
-        label="Password"
-        validators={[VALIDATOR_MINLENGTH(5)]} // pass all info to the input element
-        errorText="Please enter a valid password"
-        onInput={inputHandler}
-      />
-
-     
-      <Button type="submit" disabled={!formState.isValid} >
-        {isLogin ? 'LOGIN' : 'SIGNUP'}
+          element="input"
+          id="email"
+          type="email"
+          label="E-Mail"
+          validators={[VALIDATOR_EMAIL()]}
+          errorText="Please enter a valid email address."
+          onInput={inputHandler}
+        />
+        <Input
+          element="input"
+          id="password"
+          type="password"
+          label="Password"
+          validators={[VALIDATOR_MINLENGTH(5)]}
+          errorText="Please enter a valid password, at least 5 characters."
+          onInput={inputHandler}
+        />
+        <Button type="submit" disabled={!formState.isValid}>
+          {isLoginMode ? 'LOGIN' : 'SIGNUP'}
+        </Button>
+      </form>
+      <Button inverse onClick={switchModeHandler}>
+        SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}
       </Button>
-    </form>
-    <Button inverse onClick = {switchModeHandler}>SWITCH TO {isLogin ? 'SIGNUP' : 'LOGIN'}</Button>
     </Card>
-    )
-}
+  );
+};
 
 export default Login;
