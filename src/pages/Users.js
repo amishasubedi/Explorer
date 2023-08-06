@@ -45,15 +45,17 @@ const Users = () => {
 
   return (
     <div>
-      <div className="slideshow-container">
+       <div className="slideshow-container">
       {images.map((image, index) => (
         <div className={index === current ? 'slide active' : 'slide'} key={index}>
           {index === current && (
             <div className="image-container">
-              <img src={image.src} alt='travel location' className="image" />
-              <div className="image-description">
-                <h2>{image.title}</h2>
-                <p>{image.description}</p>
+              <div className="image">
+                <img src={image.src} alt='travel location' />
+                <div className="image-description">
+                  <h2>{image.title}</h2>
+                  <p>{image.description}</p>
+                </div>
               </div>
             </div>
           )}
